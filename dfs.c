@@ -8,12 +8,7 @@ int prev[n];
 int d[n];
 int f[n];
 int graph[n][n];
-int stack[n];
-int top = -1;
 
-void push(int v) {
-    stack[++top] = v;
-}
 
 void dfs_visit(int u, int nv) {
     color[u]= 1;
@@ -28,8 +23,6 @@ void dfs_visit(int u, int nv) {
     color[u] = 2;
     time++;
     f[u] = time;
-
-    push(u);
 
 }
 
@@ -47,14 +40,7 @@ void dfs(int nv) {
     }
 }
 
-void topological_sort(int nv) {
-    dfs(nv);
 
-    printf("Topological sort: ");
-    while(top>=0) {
-        printf("%d ", stack[top--]);
-    }
-}
 
 int main() {
     int nv, ne;
@@ -71,7 +57,14 @@ int main() {
 
     }
 
-    topological_sort(nv);
+    dfs(nv);
+
+    printf("Vertex\tDiscovery time\tFinish time\n");
+    for(int i=0; i<nv; i++) {
+        printf("%d\t%d\t\t%d\n", i, d[i], f[i]);
+    }
+
+
 
 
 }
